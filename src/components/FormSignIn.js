@@ -46,12 +46,11 @@ export default function FormSignIn() {
             <p>Or Sign In with...</p>
             <SocialIcons/>
 
-
         </div>
     )
 }
 
-function Button({children}) {
+export function Button({children}) {
     return(
         <button>
             {children}
@@ -59,17 +58,21 @@ function Button({children}) {
     )
 }
 
-function SocialIcons() {
+export function SocialIcons() {
     return (
         <div className='social-buttons'>
             <SocialButton>
-                <img src="../images/google.png" alt="" />
+                <img src="images/google.svg" alt="google icon" />
                 Google
             </SocialButton>
+
             <SocialButton>
+                <img src="images/apple.svg" alt="apple icon" />
                 Apple
             </SocialButton>
+            
             <SocialButton>
+                <img src="images/facebook.svg" alt="facebook icon" />
                 Facebook
             </SocialButton>
         </div>

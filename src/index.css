@@ -10,16 +10,16 @@ html{
 body{
     background-color: #eee;
     letter-spacing: 0.15rem;
+    font-family: futura-pt,Tahoma,Geneva,Verdana,Arial,sans-serif;
 }
 
 h1{
-    font-family: futura-pt,Tahoma,Geneva,Verdana,Arial,sans-serif;
     text-align: center;
     
 }
 
 .container-sign{
-    margin: 3rem auto;
+    margin: 0 auto;
     width: 50vw;
     background-color: #fff;
     padding: 3rem 4rem;

@@ -1,5 +1,6 @@
 import Logo from './components/Logo';
-import FormSignIn, { SignInOptions } from './components/SignIn';
+import FormSignIn, { SignInOptions } from './components/FormSignIn';
+import { Join } from './components/Join';
 
 
 function App() {
@@ -7,8 +8,6 @@ function App() {
     <>
     {/* <h1>ASOS</h1> */}
     <Logo/>
-
-    
 
     <div className="container-sign">
 
@@ -22,7 +21,8 @@ function App() {
        </SignInOptions>
       </div>
 
-      <FormSignIn/>
+      {/* <FormSignIn/> */}
+      <Join/>
 
     </div>
     </>
