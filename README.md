@@ -1,3 +1,6 @@
+****![image](https://github.com/corinachistol/react-asos/assets/115491975/db35d578-d49f-4fdf-b83c-52902ccb5189)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
