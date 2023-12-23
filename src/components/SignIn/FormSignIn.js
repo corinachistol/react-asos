@@ -27,22 +27,21 @@ export default function FormSignIn() {
         <div className="signin">
             <form onSubmit={handleSignIn}>
                 <label>Email Address:</label>
-                <input 
+                <Input 
                     type="email" 
                     onChange={e=>setEmail(e.target.value)} 
-                    value={email} 
-                    required/>
+                    value={email} required />
 
                 <label>Password:</label>
-                <input 
+                <Input 
                     type="password" 
                     onChange={e=>setPassword(e.target.value)}
-                    value={password}
-                    required/>
+                    value={password} required
+                    />
+                <Button
+                    text="SIGN IN"/>
             </form>
 
-            <Button 
-                text="SIGN IN"/>
 
             <p>Forgot Password?</p>
             <h3>Or Sign In with...</h3>
@@ -88,3 +87,8 @@ export function Button({text,icon,title,clickHandler,clas}){
     )
 }
 
+export function Input({type,onChange,value}) {
+    return(
+        <input type={type} onChange={onChange} value={value}/>
+    )
+}

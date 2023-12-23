@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "../SignIn/FormSignIn";
+import { Button,Input } from "../SignIn/FormSignIn";
 import '../signup.scss'
 
 export function FormSignUp() {
@@ -33,29 +33,28 @@ export function FormSignUp() {
     return(
         <form  onSubmit={handleSubmit}>
             <label>Email Address</label>
-            <input 
-                type="text" 
+            <Input 
+                type="email" 
                 onChange={e=>setEmail(e.target.value)} 
-                value={email}
-                required />
+                value={email} required />
+
             <p><small>We'll send your order confirmation here</small></p>
 
             <label>First Name</label>
-            <input 
+            <Input 
                 type="text" 
                 onChange={e=>setFName(e.target.value)} 
-                value={fName}
-                required />
+                value={fName} required />
 
             <label>Last Name</label>
-            <input 
+            <Input 
                 type="text"
                 onChange={e=>setLName(e.target.value)} 
                 value={lName} 
                 required />
 
             <label>Password</label>
-            <input 
+            <Input 
                 type="password"
                 onChange={e=>setPassword(e.target.value)} 
                 value={password}  
@@ -63,9 +62,9 @@ export function FormSignUp() {
             <p><small>Must be 10 or more characters</small></p>
 
             <label>Date of birth</label>
-            <input 
+            <Input 
                 type="date" 
-                onChange={e=>setDob(+e.target.value)} 
+                onChange={e=>setDob(e.target.value)} 
                 value={dob}  
                 required />
             <p><small>You need to be 16 or over to use ASOS</small></p>
