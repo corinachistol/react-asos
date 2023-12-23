@@ -1,24 +1,24 @@
-import Logo from './components/Logo';
-import FormSignIn, { SignInOptions } from './components/FormSignIn';
-import { Join } from './components/Join';
+import Logo from './components/Logo/Logo';
+import FormSignIn, { Button, SignInOptions } from './components/SignIn/FormSignIn';
+import { Join } from './components/SignUp/Join';
 
 
 function App() {
   return (
     <>
-    {/* <h1>ASOS</h1> */}
     <Logo/>
 
     <div className="container-sign">
 
       <div className='grid-container'>
-       <SignInOptions>
-        JOIN
-       </SignInOptions>
+        <Button 
+          clas='signin-options'
+          text="JOIN"/>
 
-       <SignInOptions>
-        SIGN IN
-       </SignInOptions>
+        <Button 
+          clas='signin-options'
+          text="SIGN IN"/>
+       
       </div>
 
       {/* <FormSignIn/> */}

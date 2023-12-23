@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Button } from "./FormSignIn";
-import './signup.scss'
+import { Button } from "../SignIn/FormSignIn";
+import '../signup.scss'
 
-export function SignUp() {
+export function FormSignUp() {
 
     const [email,setEmail] = useState("")
     const [lName,setLName] = useState("")
@@ -31,7 +31,7 @@ export function SignUp() {
     }
 
     return(
-        <form className="signup" onSubmit={handleSubmit}>
+        <form  onSubmit={handleSubmit}>
             <label>Email Address</label>
             <input 
                 type="text" 
@@ -79,7 +79,8 @@ export function SignUp() {
                 <label htmlFor="menswear">Menswear</label>
             </div>
 
-            <Button>Join Asos</Button>
+            <Button
+                text="Join Asos"/>
 
             
             

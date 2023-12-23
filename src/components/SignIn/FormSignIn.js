@@ -41,57 +41,50 @@ export default function FormSignIn() {
                     required/>
             </form>
 
-            <Button>Sign In</Button>
+            <Button 
+                text="SIGN IN"/>
+
             <p>Forgot Password?</p>
-            <p>Or Sign In with...</p>
+            <h3>Or Sign In with...</h3>
+
             <SocialIcons/>
 
         </div>
     )
 }
 
-export function Button({children}) {
-    return(
-        <button>
-            {children}
-        </button>
-    )
-}
 
 export function SocialIcons() {
     return (
         <div className='social-buttons'>
-            <SocialButton>
-                <img src="images/google.svg" alt="google icon" />
-                Google
-            </SocialButton>
-
-            <SocialButton>
-                <img src="images/apple.svg" alt="apple icon" />
-                Apple
-            </SocialButton>
-            
-            <SocialButton>
-                <img src="images/facebook.svg" alt="facebook icon" />
-                Facebook
-            </SocialButton>
+            <Button 
+                clas="social-button"
+                text="GOOGLE"
+                icon="images/google.svg"
+                title="google icon"
+            />
+            <Button 
+                clas="social-button"
+                text="APPLE"
+                icon="images/apple.svg"
+                title="apple icon"
+            />
+            <Button 
+                clas="social-button"
+                text="FACEBOOK"
+                icon="images/facebook.svg"
+                title="facebook icon"
+            />
         </div>
     )
 }
 
-function SocialButton({children}) {
+export function Button({text,icon,title,clickHandler,clas}){
     return(
-        <button className='social-button'>
-            {children}
+        <button onClick={clickHandler} className={clas}>
+            <img src={icon} alt={title} />
+            {text}
         </button>
     )
 }
 
-export function SignInOptions({children}) {
-    return (
-        <button className='signin-options'>
-            {children}
-        </button>
-    )
-   
-}
