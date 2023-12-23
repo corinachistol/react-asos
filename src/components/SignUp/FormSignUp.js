@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button,Input } from "../SignIn/FormSignIn";
-import '../signup.scss'
+import './signup.scss'
 
 export function FormSignUp() {
 
