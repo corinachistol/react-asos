@@ -64,10 +64,9 @@ export function FormSignUp({errors, onSetErrors,submitting, onSetSubmitting}) {
         if(!inputValue.lastName || !inputValue.lastName ){
             errors.name = "This field cannot be empty"
         }
-        if(!inputValue.dateOfBirth){
+        if(!userAge){
             errors.dateOfBirth = "This field cannot be empty"
-        }
-        if(userAge < 16){
+        }else if(userAge < 16){
             errors.dateOfBirth = "You need to be 16 or over to use ASOS"
         }
         return errors;
@@ -143,7 +142,7 @@ export function FormSignUp({errors, onSetErrors,submitting, onSetSubmitting}) {
                 value={user.dateOfBirth} />
 
             {errors.dateOfBirth ? 
-                (<p className="error">You need to be {calculateAge(user.dateOfBirth)} or over to use ASOS</p>) : null }
+                (<p className="error">{errors.dateOfBirth}</p>) : null }
             
 
             
