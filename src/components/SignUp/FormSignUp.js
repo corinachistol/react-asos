@@ -112,6 +112,8 @@ export function FormSignUp({errors, onSetErrors,submitting, onSetSubmitting}) {
                 onChange={handleChange} 
                 value={user.firstName}
                 pattern="[A-Za-z]+" />
+             {errors.name ? 
+                (<p className="error">{errors.name}</p>) : null }
 
             <InputGroup 
                 label="Last Name" 
@@ -120,6 +122,9 @@ export function FormSignUp({errors, onSetErrors,submitting, onSetSubmitting}) {
                 onChange={handleChange} 
                 value={user.lastName}
                 pattern="[A-Za-z]+"  />
+
+            {errors.name ? 
+                (<p className="error">{errors.name}</p>) : null }
 
             <InputGroup
                 label="Password" 
