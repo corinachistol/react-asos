@@ -56,17 +56,23 @@
     input{
         height: 2rem;
         margin-bottom: 0.5rem;
+        outline: none;
+        border: none;
 
 
-        :active{
-            border: 2px solid blue;
-        }
+        // &:active{
+        //     border: 2px solid blue;
+        // }
 
-        :invalid{
+        // &:focus{
+        //     border: 2px solid yellow;
+        // }
+
+        &:invalid{
             border:2px solid red;
         }
 
-        :valid{
+        &:valid{
             border: 2px solid green;
         }
     }
@@ -90,11 +96,13 @@
         margin: 0.6rem 0;
         text-align: center;
 
-        &small{
-            text-align: left;
-        }
     }
 
+    .error{
+        color: red;
+        text-align: left;
+    }
+    
     h3{
         text-align: center;
         text-transform: uppercase;
@@ -129,4 +137,5 @@
             }
         }
     }
+
 }

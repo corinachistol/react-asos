@@ -26,14 +26,16 @@ export default function FormSignIn() {
     return (
         <div className="signin">
             <form onSubmit={handleSignIn}>
-                <label>Email Address:</label>
-                <Input 
+                <InputGroup
+                    label="Email Address:" 
+                    name="email"
                     type="email" 
                     onChange={e=>setEmail(e.target.value)} 
                     value={email} required />
 
-                <label>Password:</label>
-                <Input 
+                <InputGroup
+                    label="Pasword:"
+                    name="password" 
                     type="password" 
                     onChange={e=>setPassword(e.target.value)}
                     value={password} required
@@ -87,8 +89,12 @@ export function Button({text,icon,title,clickHandler,clas}){
     )
 }
 
-export function Input({type,onChange,value}) {
+export function InputGroup({label,type,onChange,value,name, pattern}) {
     return(
-        <input type={type} onChange={onChange} value={value}/>
+        <>
+            <label>{label}</label>
+            <input type={type} onChange={onChange} value={value} name={name} pattern={pattern}/>
+
+        </>
     )
 }
