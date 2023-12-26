@@ -1,4 +1,6 @@
 ****![image](https://github.com/corinachistol/react-asos/assets/115491975/db35d578-d49f-4fdf-b83c-52902ccb5189)
+![image](https://github.com/corinachistol/react-asos/assets/115491975/642bfac4-9401-4a83-b845-8ce023e0fb61)
+
 
 
 # Getting Started with Create React App
