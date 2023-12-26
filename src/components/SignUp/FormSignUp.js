@@ -11,35 +11,49 @@ export function FormSignUp({errors, onSetErrors,submitting, onSetSubmitting}) {
         password: "",
         dateOfBirth: ""
     })
-    // console.log(new Date(user.dateOfBirth))
+    console.log(user.dateOfBirth)
 
     function handleChange(e) {
         const { value, name } = e.target;
         setUser(prevValue=>{
             return {
                 ...prevValue,
-                [name]:value
-                // [name]: name === "dateOfBirth" ? Date.parse(value) : value
+                // [name]:value
+                [name]: name === "dateOfBirth" ? Date.parse(value) : value
             }
         })
     }
 
-    // function calculateAge(dobTimestamp){
-    //     const today = new Date();
-    //     const dobDate= new Date(dobTimestamp)
-    //     const age = today.getFullYear() - dobDate.getFullYear()
-
-    //     if (today.getMonth() < dobDate.getMonth() || 
-    //     (today.getMonth() === dobDate.getMonth() && today.getDate() < dobDate.getDate())){
-    //         age--
-    //     }
-  
-    //     return age 
+    // function calculateAge(userInput){
+    //    let dob = new Date(userInput)
+    //    let month_diff = Date.now() - dob.getTime()
+    //    let age_dt = new Date(month_diff)
+    //    let year = age_dt.getUTCFullYear()
+    //    let age = Math.abs(new Date().getFullYear() - year)
+    //    return age
     // }
 
+      function calculateAge(dobTimestamp){
+        const today = new Date();
+        const dobDate= new Date(dobTimestamp)
+        const age = today.getFullYear() - dobDate.getFullYear()
+
+        if (today.getMonth() < dobDate.getMonth() || 
+        (today.getMonth() === dobDate.getMonth() && today.getDate() < dobDate.getDate())){
+            age--
+        }
+  
+        return age 
+    }
     
     function validateInputs(inputValue) {
+        console.log(inputValue)
         let errors = {};
+
+        // console.log(inputValue.dateOfBirth)
+
+        let userAge= calculateAge(inputValue.dateOfBirth)
+        console.log(userAge)
 
         if(inputValue.email.length < 15){
             errors.email = "Email is too short!"
@@ -53,9 +67,9 @@ export function FormSignUp({errors, onSetErrors,submitting, onSetSubmitting}) {
         if(!inputValue.dateOfBirth){
             errors.dateOfBirth = "This field cannot be empty"
         }
-        // if(minYear < 16){
-        //     errors.dateOfBirth = "You need to be 16 or over to use ASOS"
-        // }
+        if(userAge < 16){
+            errors.dateOfBirth = "You need to be 16 or over to use ASOS"
+        }
         return errors;
     }
 
@@ -128,8 +142,8 @@ export function FormSignUp({errors, onSetErrors,submitting, onSetSubmitting}) {
                 onChange={handleChange} 
                 value={user.dateOfBirth} />
 
-            {/* {errors.dateOfBirth ? 
-                (<p className="error">You need to be {calculateAge(user.dateOfBirth)} or over to use ASOS</p>) : null } */}
+            {errors.dateOfBirth ? 
+                (<p className="error">You need to be {calculateAge(user.dateOfBirth)} or over to use ASOS</p>) : null }
             
 
             
