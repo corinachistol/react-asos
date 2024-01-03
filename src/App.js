@@ -1,60 +1,44 @@
-import { useState } from "react";
-import Logo from './components/Logo/Logo';
-import FormSignIn, { Button, SignInOptions } from './components/SignIn/FormSignIn';
-import { Join } from './components/SignUp/Join';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Route,
+} from 'react-router-dom';
+
+//layout
+import RootLayout from './layouts/RootLayout';
+//pages
+import NotFound from './pages/NotFound';
+import Home from './pages/Home';
+import Register from './components/Register';
+
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout/>}>
+      <Route index element={<Home/>}/>
+      {/* <Route path="women" element={<Women/>}/>
+      <Route path="men" element={<Men/>}/> */}
+      <Route path="register" element={<Register/>}/>
+      {/* <Route path="saved-lists" element={<SavedLists/>} />
+      <Route path="your-bag" element={<YourBag/>} /> */}
+
+
+      <Route path="*" element={<NotFound/>}/>
+
+
+    </Route>  
+  )
+)
+
 
 
 function App() {
 
-  const [errors,setErrors] = useState({})
-  const [submitting, setSubmitting] = useState(false)
-
-  const [buttonSelected, setButtonSelected] = useState("")
-
-  function handleClick(e){
-    setButtonSelected(e.target.innerText)
-  }
-
   return (
-    <>
-      <Logo/>
-
-      <div className="container-sign">
-
-        {Object.keys(errors).length === 0 && submitting ? 
-          (<span className="success">Successfully signed up ✔. Please check your <a href="#">email</a> for confirmation!</span>) 
-          : (
-            <>
-              <div className='container-signin__header'>
-                <Button 
-                  clas='signin-options'
-                  text="JOIN"
-                  clickHandler={handleClick}/>
-
-                <Button 
-                  clas='signin-options'
-                  text="SIGN IN"
-                  clickHandler={handleClick}/>
-
-              </div>
-
-              <div className="container-signin__main">
-                {buttonSelected === "JOIN" && <Join 
-                    errors={errors}
-                    onSetErrors={setErrors}
-                    submitting={submitting}
-                    onSetSubmitting={setSubmitting} />
-                }
-
-                {buttonSelected === "SIGN IN" && <FormSignIn/>}
-               
-                
-              </div>  
-            </>
-          )}
-      </div>
-    </>
-  );
+    <RouterProvider router={router}/>
+  
+    )
 }
 
 export default App;

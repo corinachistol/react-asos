@@ -45,7 +45,7 @@ export default function FormSignIn() {
             </form>
 
 
-            <p>Forgot Password?</p>
+            <a href="#"><p>Forgot Password?</p></a>
             <h3>Or Sign In with...</h3>
 
             <SocialIcons/>
@@ -93,7 +93,12 @@ export function InputGroup({label,type,onChange,value,name, pattern}) {
     return(
         <>
             <label>{label}</label>
-            <input type={type} onChange={onChange} value={value} name={name} pattern={pattern}/>
+            <input type={type} 
+                onChange={onChange} 
+                value={value} 
+                name={name} 
+                pattern={pattern}
+                required/>
 
         </>
     )
