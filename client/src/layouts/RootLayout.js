@@ -1,9 +1,12 @@
-import { NavLink,Outlet} from "react-router-dom"
+import { NavLink,Outlet,useLocation} from "react-router-dom"
 import Logo from "../components/Logo/Logo"
 import './style.scss';
 import { useState } from "react";
+import { Search } from "../components/Search";
 
 export default function RootLayout() {
+    const location = useLocation()
+    console.log(location)
 
     return (
         <div className="root-layout">
@@ -13,10 +16,13 @@ export default function RootLayout() {
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="women">Women</NavLink>
                     <NavLink to="men">Men</NavLink>
-                    {/* trebuie o componenta search */}
-                    <input type="search" name="search" id="" />
+                    <Search/>
                     <NavLink to="register">Register</NavLink>
-                    <NavLink to="saved-links">Saved</NavLink>
+                    <NavLink to="saved-links">Saved
+                        <a href="">
+                            <img src="../../public/images/heart-52.png" alt="" />
+                        </a>
+                    </NavLink>
                     <NavLink to="your-bag">Bag</NavLink>
 
                 </nav>

@@ -273,7 +273,7 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
     // }
 
     function handleSubmit(e) {
-        e.preventDefault()
+        // e.preventDefault()
         console.log(user)
         // onSetErrors(validateInputs(user))
         onSetSubmitting(true)
@@ -291,7 +291,7 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
 
     return(
         
-        <form onSubmit={handleSubmit} noValidate >
+        <form onSubmit={handleSubmit} noValidate action="/signup" method="POST" >
             <InputGroup
                 label="Email Address"
                 type="email" 

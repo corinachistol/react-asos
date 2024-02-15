@@ -7,7 +7,6 @@ export function Join({errors, onSetErrors,submitting, onSetSubmitting}) {
     return (
         <div className="signup">
 
-
             <h3>Sign Up with...</h3>
             <SocialIcons/>
 
@@ -17,11 +16,13 @@ export function Join({errors, onSetErrors,submitting, onSetSubmitting}) {
             </p>
 
             <h3>or Sign Up With Email</h3>
+            
             <FormSignUp 
                 errors={errors} 
                 onSetErrors={onSetErrors}
                 submitting={submitting}
-                onSetSubmitting={onSetSubmitting}/>
+                onSetSubmitting={onSetSubmitting}
+            />
 
 
         </div>
