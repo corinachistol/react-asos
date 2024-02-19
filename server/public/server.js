@@ -36,6 +36,35 @@ fastify.decorate('testMiddleware', (request, reply) => __awaiter(void 0, void 0,
 fastify.get('/', (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     return { status: "active" };
 }));
+fastify.addHook('preHandler', (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
+    if (request.method === "PATCH" || request.method === "DELETE") {
+        console.log("Update/Delete check");
+        const { sessionId } = request.query;
+        const { id } = request.params;
+        if (!sessionId) {
+            console.log("First");
+            reply.code(401).send("Client not authorized!!!");
+        }
+        else {
+            const clientSession = yield fastify.orm
+                .getRepository(Client_sessions)
+                .createQueryBuilder("session")
+                .leftJoinAndSelect("session.client", "client.id")
+                .where("session.session_id = :sessionId", { sessionId })
+                .getOne();
+            console.log(clientSession);
+            if (clientSession !== undefined) {
+                if ((clientSession === null || clientSession === void 0 ? void 0 : clientSession.client.id) == id) {
+                    console.log("SECOND!You are trying to update/delete your own data");
+                }
+                else if ((clientSession === null || clientSession === void 0 ? void 0 : clientSession.client.id) !== id) {
+                    console.log("THIRD!You are not authorized to update/delete another user");
+                    reply.code(401).send("You are not authorized to update/delete another user");
+                }
+            }
+        }
+    }
+}));
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield fastify.listen({ port: 3000 });

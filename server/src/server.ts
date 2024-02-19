@@ -1,7 +1,7 @@
 import Fastify, { FastifyInstance,FastifyRequest, FastifyReply } from "fastify";
 import { postProduct } from "./product/api.js";
 import { Product } from "./product/entities.js";
-import { clientRoutes, getAllClients, postClient } from "./client/api.js";
+import { clientRoutes} from "./client/api.js";
 import { Client } from "./client/entities.js";
 import { authRoutes } from "./auth/api.js";
 import { Client_sessions } from "./auth/entities.js";
@@ -32,6 +32,45 @@ fastify.decorate('testMiddleware', async (request:FastifyRequest,reply:FastifyRe
 
 fastify.get('/', async (request,reply)=>{
     return {status:"active"}
+})
+
+fastify.addHook('preHandler', async(request:FastifyRequest,reply:FastifyReply) => {
+  if(request.method === "PATCH" || request.method === "DELETE"){
+      console.log("Update/Delete check")
+      const {sessionId} = request.query
+      const {id} = request.params
+
+      // const queryClient = await fastify.orm
+      //     .getRepository(Client)
+      //     .createQueryBuilder("client")
+      //     .where("client.id = :id", {id} )
+      //     .getOne()
+      // console.log(queryClient)
+
+      if(!sessionId){
+          console.log("First")
+          reply.code(401).send("Client not authorized!!!")
+
+      }else{
+          const clientSession = await fastify.orm
+            .getRepository(Client_sessions)
+            .createQueryBuilder("session")
+            .leftJoinAndSelect("session.client", "client.id")
+            .where("session.session_id = :sessionId", {sessionId} )
+            .getOne()
+            console.log(clientSession)
+            
+
+          if(clientSession !== undefined){
+              if(clientSession?.client.id == id){
+                  console.log("SECOND!You are trying to update/delete your own data")
+              }else if(clientSession?.client.id !== id){
+                  console.log("THIRD!You are not authorized to update/delete another user")
+                  reply.code(401).send("You are not authorized to update/delete another user")
+              }
+          }
+      }
+  }
 })
 
 const start = async () =>{

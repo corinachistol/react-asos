@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { Client, Name } from "./entities.js";
 import { postClientOps } from "./schema.js";
+import { Client_sessions } from "../auth/entities.js";
 export function clientRoutes(fastify, options) {
     return __awaiter(this, void 0, void 0, function* () {
         fastify.get('/', (request, reply) => __awaiter(this, void 0, void 0, function* () {
@@ -46,6 +47,50 @@ export function clientRoutes(fastify, options) {
         fastify.route({
             method: "GET",
             url: "/:id",
+            preHandler: (req, reply) => __awaiter(this, void 0, void 0, function* () {
+                const { sessionId } = req.query;
+                const { id } = req.params;
+                const queryClient = yield fastify.orm
+                    .getRepository(Client)
+                    .createQueryBuilder("client")
+                    .where("client.id = :id", { id })
+                    .getOne();
+                if (!sessionId) {
+                    if (!queryClient) {
+                        console.log("First");
+                        reply.send(`Client with id ${id} is missing in the database!!!`);
+                    }
+                    else {
+                        console.log("Second");
+                        reply.send({
+                            id: queryClient.id,
+                            name: queryClient.name
+                        });
+                    }
+                }
+                else {
+                    const clientSession = yield fastify.orm
+                        .getRepository(Client_sessions)
+                        .createQueryBuilder("session")
+                        .leftJoinAndSelect("session.client", "client.id")
+                        .where("session.session_id = :sessionId", { sessionId })
+                        .getOne();
+                    console.log(clientSession);
+                    if (clientSession !== undefined) {
+                        if (id == (clientSession === null || clientSession === void 0 ? void 0 : clientSession.client.id)) {
+                            console.log("Third");
+                            reply.send({ queryClient });
+                        }
+                        else {
+                            console.log("Forth");
+                            reply.send({
+                                id: queryClient === null || queryClient === void 0 ? void 0 : queryClient.id,
+                                name: queryClient === null || queryClient === void 0 ? void 0 : queryClient.name
+                            });
+                        }
+                    }
+                }
+            }),
             handler: (req, reply) => __awaiter(this, void 0, void 0, function* () {
                 const { id } = req.params;
                 const res = yield fastify.orm
@@ -56,5 +101,48 @@ export function clientRoutes(fastify, options) {
                 console.log(res);
             })
         });
+        fastify.patch('/:id', (req, reply) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const { first_name, last_name, address, phone, email, password } = req.body;
+                const new_client = yield fastify.orm
+                    .createQueryBuilder()
+                    .update(Client)
+                    .set({
+                    name: {
+                        first: first_name,
+                        last: last_name
+                    },
+                    address: address,
+                    phone: phone,
+                    password: password,
+                    email: email
+                })
+                    .where("id = :id", { id })
+                    .execute();
+                return reply.send({ new_client });
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }));
+        fastify.delete('/:id', (req, reply) => __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                const res = yield fastify.orm
+                    .getRepository(Client)
+                    .createQueryBuilder('client')
+                    .delete()
+                    .from(Client)
+                    .where("client.id = :id", { id })
+                    .execute();
+                console.log(`client id: ${id} was deleted`);
+                return reply.code(200).send({ status: "success", res });
+            }
+            catch (error) {
+                console.log(error);
+                return reply.code(500).send({ message: "Internal Server Error" });
+            }
+        }));
     });
 }
