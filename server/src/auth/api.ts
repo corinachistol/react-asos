@@ -3,6 +3,7 @@ import {Client} from '../client/entities.js'
 import { Client_sessions } from "./entities.js";
 
 export async function authRoutes(fastify:FastifyInstance, options) {
+
     fastify.post('/signin', async (req:FastifyRequest, reply:FastifyReply) => {
 
         const {email, password} = req.body
