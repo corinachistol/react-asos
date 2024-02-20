@@ -1,6 +1,7 @@
 export const productSchema = {
     name: { type: "string" },
     image: { type: "string" },
+    priceId: { type: "integer" },
     priceAmount: { type: "integer" },
     pricceCurrency: { type: "string" }
 };

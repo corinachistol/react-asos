@@ -1,5 +1,8 @@
-export function Money({ priceObject: {amount,currency} }){
+export function Money({ priceObject }){
+    console.log(priceObject)
+    // console.log(currency)
+    // console.log(id)
     return (
-        <p>{amount} {currency}</p>
+        <p>{priceObject.amount} {priceObject.currency}</p>
     )
 }

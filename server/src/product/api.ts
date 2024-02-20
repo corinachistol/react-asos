@@ -6,14 +6,14 @@ import { postProductSchema } from "./schema.js";
 
 // const fastify: FastifyInstance = Fastify({logger:true})
 
-export async function postProduct(fastify:FastifyInstance, options: object) {
+export async function productRoutes(fastify:FastifyInstance, options: object) {
     fastify.route({
         method: "POST",
-        url: '/products',
+        url: '/',
         schema:postProductSchema,
         handler: async (request:FastifyRequest, reply:FastifyReply ) => {
             try {
-                const {name, image, priceAmount, priceCurrency} = request.body
+                const {name, image, priceId, priceAmount, priceCurrency} = request.body
                 // console.log(name, amount, currency)
 
                 const newProduct = new Product()
@@ -21,6 +21,7 @@ export async function postProduct(fastify:FastifyInstance, options: object) {
                 // newProduct.id = id;
                 newProduct.image = image;
                 newProduct.price = new Money();
+                newProduct.price.id = priceId;
                 newProduct.price.amount = priceAmount;
                 newProduct.price.currency = priceCurrency;
                 
@@ -37,6 +38,19 @@ export async function postProduct(fastify:FastifyInstance, options: object) {
     
         }
     })  
+
+    fastify.get('/', async (req:FastifyRequest,reply:FastifyReply) =>{
+        try {
+            const products = await fastify.orm
+                .getRepository(Product)
+                .createQueryBuilder("products")
+                .getMany()
+            
+            reply.code(200).send({products})
+        } catch (error) {
+            reply.code(500).send({error: 'Products cannot be loaded!'})
+        }
+    })
 }
 
 

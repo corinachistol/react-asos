@@ -1,5 +1,5 @@
 import Fastify, { FastifyInstance,FastifyRequest, FastifyReply } from "fastify";
-import { postProduct } from "./product/api.js";
+import { productRoutes } from "./product/api.js";
 import { Product } from "./product/entities.js";
 import { clientRoutes} from "./client/api.js";
 import { Client } from "./client/entities.js";
@@ -21,7 +21,7 @@ fastify.register(import('fastify-typeorm-plugin'),{
   entities: [Product,Client,Client_sessions],
 })
 
-fastify.register(postProduct)
+fastify.register(productRoutes, {prefix:'/products'})
 fastify.register(clientRoutes, {prefix: '/clients'})
 fastify.register(authRoutes)
 

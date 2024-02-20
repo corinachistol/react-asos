@@ -11,6 +11,10 @@ import { Column } from 'typeorm';
 export class Money {
 }
 __decorate([
+    Column(),
+    __metadata("design:type", Number)
+], Money.prototype, "id", void 0);
+__decorate([
     Column({ type: "numeric" }),
     __metadata("design:type", Number)
 ], Money.prototype, "amount", void 0);
