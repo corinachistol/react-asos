@@ -4,7 +4,7 @@ import './style.scss';
 import { useState } from "react";
 import { Search } from "../components/Search";
 
-export default function RootLayout() {
+export default function RegisterLayout() {
     const location = useLocation()
     console.log(location)
 
@@ -13,17 +13,17 @@ export default function RootLayout() {
             <header>
                 <nav>
                     <Logo/>
-                    <NavLink to="/">Home</NavLink>
+                    {/* <NavLink to="/">Home</NavLink>
                     <NavLink to="women">Women</NavLink>
                     <NavLink to="men">Men</NavLink>
-                    <Search/>
-                    {/* <NavLink to="register">Register</NavLink> */}
-                    <NavLink to="saved-links">Saved
+                    <Search/> */}
+                    <NavLink to="register">Register</NavLink>
+                    {/* <NavLink to="saved-links">Saved
                         <a href="">
                             <img src="../../public/images/heart-52.png" alt="" />
                         </a>
                     </NavLink>
-                    <NavLink to="your-bag">Bag</NavLink>
+                    <NavLink to="your-bag">Bag</NavLink> */}
 
                 </nav>
             </header>

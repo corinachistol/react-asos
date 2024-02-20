@@ -6,7 +6,8 @@ import {
 } from 'react-router-dom';
 
 //layout
-import RootLayout from './layouts/RootLayout';
+import RootLayout from './layouts/RegisterLayout';
+import RegisterLayout from './layouts/RegisterLayout';
 //pages
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
@@ -16,9 +17,9 @@ import Register from './components/Register';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<RootLayout/>}>
+    <Route path="/" element={<RegisterLayout/>}>
       <Route index element={<Home/>}/>
-      <Route path="women" element={<Women/>}></Route>
+      <Route path="women" element={<Women/>}/>
       {/* <Route path="men" element={<Men/>}/> */}
       <Route path="register" element={<Register/>}/>
       {/* <Route path="saved-lists" element={<SavedLists/>} />
