@@ -15,44 +15,12 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
     })
 
     function handleChange(e) {
-        e.preventDefault()
+        // e.preventDefault()
 
-        const {validationMessage,validity, value,name } = e.target;
-        //avem access la aceste obiecte doar prin e.target
-        console.log(validationMessage)
-        console.log(validity)
+        const {value,name } = e.target;
+        
         console.log(value)
-        console.log(name)
-       
-        if(name === "email" && validity.patternMismatch){
-            errors.email="I expect an email address"
-        }else{
-            errors.email = ""
-        }
-
-        if(name === "firstName" && validity.patternMismatch) {
-            errors.firstName = "Please enter only alphabetical characters!"
-        }else{
-            errors.firstName = ""
-        }
-
-        if(name === "lastName" && validity.patternMismatch) {
-            errors.lastName = "Please enter only alphabetical characters!"
-        }else{
-            errors.lastName = ""
-        }
-
-        if(name === "password" && validity.patternMismatch) {
-            errors.password = "The password must contain at least one capital letter, one lowercase letter, numbers and symbols"
-        }else{
-            errors.password = ""
-        }
-
-        if(name === "address" && validity.patternMismatch) {
-            errors.address = "Please enter only alphabetical characters and numbers! No zip code needed"
-        }else{
-            errors.address = ""
-        }
+        console.log(name)       
         
         setUser(prevValue=>{
             return {
@@ -61,25 +29,62 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
             }
         })
         console.log(user)
-        console.log(errors)
+    }
+
+    function validateInputs(userValues) {  //userValues este obiectul care represinta valorile curente din input
+        //nu functioneaza, obiectul validity nu este corect accesat
+        let errors = {}
+        if(userValues.email.validity){
+            console.log(userValues.email.validity)
+            errors.email="I expect an email address"
+        }else{
+            errors.email = ""
+        }
+
+        if(userValues.firstName.validity) {
+            errors.firstName = "Please enter only alphabetical characters!"
+        }else{
+            errors.firstName = ""
+        }
+
+        if(userValues.lastName.validity) {
+            errors.lastName = "Please enter only alphabetical characters!"
+        }else{
+            errors.lastName = ""
+        }
+
+        if(userValues.password.validity) {
+            errors.password = "The password must contain at least one capital letter, one lowercase letter, numbers and symbols"
+        }else{
+            errors.password = ""
+        }
+
+        if(userValues.address.validity) {
+            errors.address = "Please enter only alphabetical characters and numbers! No zip code needed"
+        }else{
+            errors.address = ""
+        }
+
+        return errors
+
     }
 
 
-    function handleSubmit(user) {
-        console.log(user)
-        // onSetErrors(validateInputs(user))
+    function handleSubmit(e) {
+        e.preventDefault()
+        onSetErrors(validateInputs(user))
         onSetSubmitting(true)
     }
 
-    // function finishSubmit() {
-        
-    // }
+    function finishSubmit() {
+        console.log(user)
+    }
 
-    // useEffect(()=>{
-    //     if(Object.keys(errors).length === 0 && submitting){
-    //         finishSubmit()
-    //     }
-    // },[errors])
+    useEffect(()=>{
+        if(Object.keys(errors).length === 0 && submitting){
+            finishSubmit()
+        }
+    },[errors])
 
     return(
         
