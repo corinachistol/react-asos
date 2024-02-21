@@ -1,4 +1,4 @@
-.root-layout{
+.register-layout, .root-layout{
     header nav{
         display: flex;
         gap:2rem;
@@ -51,4 +51,8 @@
           
         }
     }
+}
+
+.register-layout{
+
 }

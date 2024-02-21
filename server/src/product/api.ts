@@ -51,6 +51,24 @@ export async function productRoutes(fastify:FastifyInstance, options: object) {
             reply.code(500).send({error: 'Products cannot be loaded!'})
         }
     })
+
+    fastify.get('/:id', async (req:FastifyRequest,reply:FastifyReply) =>{
+        try {
+            const {id} = req.params
+
+            const product = await fastify.orm
+                .getRepository(Product)
+                .createQueryBuilder("products")
+                .where("product.id = :id", {id} )
+                .getOne()
+            
+            reply.code(200).send({product})
+        } catch (error) {
+            reply.code(500).send({error: 'Product cannot be loaded!'})
+        }
+    })
+
+
 }
 
 

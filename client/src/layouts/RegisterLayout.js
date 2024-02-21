@@ -9,7 +9,7 @@ export default function RegisterLayout() {
     console.log(location)
 
     return (
-        <div className="root-layout">
+        <div className="register-layout">
             <header>
                 <nav>
                     <Logo/>
