@@ -11,7 +11,7 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
         firstName: "",
         lastName: "",
         password: "",
-        dateOfBirth: ""
+        address: ""
     })
 
     function handleChange(e) {
@@ -175,15 +175,15 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
             
 
             <InputGroup
-                label="Date of birth" 
-                type="date"
-                name="dateOfBirth" 
+                label="Address" 
+                type="address"
+                name="address" 
                 onChange={handleChange} 
-                value={user.dateOfBirth}
+                value={user.address}
             />
 
-            {errors.dateOfBirth ? 
-                (<p className="error">{errors.dateOfBirth}</p>) : null }
+            {errors.address ? 
+                (<p className="error">{errors.address}</p>) : null }
             
 
             
