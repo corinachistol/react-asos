@@ -20,15 +20,15 @@ const router = createBrowserRouter(
     <Route>
       <Route path="/" element={<RegisterLayout/>}>
         <Route index element={<Home/>}/>
+        <Route path="register" element={<Register/>}/>
       </Route>  
 
         {/* is user exists in the database  */}
       <Route path="/" element={<RootLayout/>}>
         <Route index element ={<Home/>}/>
-
         <Route path="women" element={<Women/>}/>
+
         {/* <Route path="men" element={<Men/>}/> */}
-        <Route path="register" element={<Register/>}/>
         {/* <Route path="saved-lists" element={<SavedLists/>} />
         <Route path="your-bag" element={<YourBag/>} /> */}
   

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Logo from './Logo/Logo';
-import FormSignIn, { Button, SignInOptions } from './SignIn/FormSignIn';
+import FormSignIn, { Button } from './SignIn/FormSignIn';
 import { Join } from './SignUp/Join';
 
 

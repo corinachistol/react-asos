@@ -4,7 +4,7 @@ import { Client_sessions } from "./entities.js";
 
 export async function authRoutes(fastify:FastifyInstance, options) {
 
-    fastify.post('/signin', async (req:FastifyRequest, reply:FastifyReply) => {
+    fastify.post('/signup', async (req:FastifyRequest, reply:FastifyReply) => {
 
         const {email, password} = req.body
 

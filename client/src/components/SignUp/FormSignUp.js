@@ -11,103 +11,61 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
         firstName: "",
         lastName: "",
         password: "",
-        address: ""
+        address: "" ,
     })
 
     function handleChange(e) {
         e.preventDefault()
 
-        // let errors = {}
+        const {validationMessage,validity, value,name } = e.target;
+        //avem access la aceste obiecte doar prin e.target
+        console.log(validationMessage)
+        console.log(validity)
+        console.log(value)
+        console.log(name)
        
-        const {validity,value,name } = e;
+        if(name === "email" && validity.patternMismatch){
+            errors.email="I expect an email address"
+        }else{
+            errors.email = ""
+        }
+
+        if(name === "firstName" && validity.patternMismatch) {
+            errors.firstName = "Please enter only alphabetical characters!"
+        }else{
+            errors.firstName = ""
+        }
+
+        if(name === "lastName" && validity.patternMismatch) {
+            errors.lastName = "Please enter only alphabetical characters!"
+        }else{
+            errors.lastName = ""
+        }
+
+        if(name === "password" && validity.patternMismatch) {
+            errors.password = "The password must contain at least one capital letter, one lowercase letter, numbers and symbols"
+        }else{
+            errors.password = ""
+        }
+
+        if(name === "address" && validity.patternMismatch) {
+            errors.address = "Please enter only alphabetical characters and numbers! No zip code needed"
+        }else{
+            errors.address = ""
+        }
         
-        
-
-        // if(validity.valueMissing){
-        //     console.log("This field cannot be empty!")
-        // }
-
-        // if(validity.patternMismatch){
-        //     console.log("Please respect the pattern field")
-        // }
-        // if(name === "email" && validity.patternMismatch){
-        //     // errors.email="something"
-        //     console.log("doesn't match")
-        // } else{
-        //     console.log(validity)
-        //     console.log("math") 
-        // }
-
-        if (validity.patternMismatch) {
-            name.setCustomValidity("You gotta fill this out, yo!");
-            console.log("1")
-          } else if (validity.rangeUnderflow) {
-            console.log("2")
-            name.setCustomValidity("We need a higher number!");
-          } else if (validity.rangeOverflow) {
-            console.log("3")
-            name.setCustomValidity("Thats too high!");
-          } else {
-            name.setCustomValidity("");
-          }
-        
-          name.reportValidity();
-
-
         setUser(prevValue=>{
             return {
                 ...prevValue,
                 [name]:value
-                // [name]: name === "dateOfBirth" ? Date.parse(value) : value
             }
         })
-
-         
+        console.log(user)
+        console.log(errors)
     }
 
-      function calculateAge(dob){
-        const today = new Date();
-        // console.log(today)
-        const dobDate= new Date(dob)
-        // console.log(dobDate)
-        const age = today.getFullYear() - dobDate.getFullYear()
-        // console.log(age)
 
-        if (today.getMonth() < dobDate.getMonth() || 
-        (today.getMonth() === dobDate.getMonth() && today.getDate() < dobDate.getDate())){
-            age--
-        }
-  
-        return(age) 
-    }
-    
-    // function validateInputs(inputValue) {
-    
-    //     console.log(inputValue)
-    //     // let errors = {};
-
-    //     let userAge= calculateAge(inputValue.dateOfBirth)
-    //     console.log(userAge)
-
-    //     if(inputValue.email.length < 15){
-    //         errors.email = "Email is too short!"
-    //     }
-    //     if(inputValue.password.length < 10){
-    //         errors.password = "Password must be 10 or more characters"
-    //     }
-    //     if(!inputValue.lastName || !inputValue.lastName ){
-    //         errors.name = "This field cannot be empty"
-    //     }
-    //     if(!userAge){
-    //         errors.dateOfBirth = "This field cannot be empty"
-    //     }else if(userAge < 16){
-    //         errors.dateOfBirth = "You need to be 16 or over to use ASOS"
-    //     }
-    //     return errors;
-    // }
-
-    function handleSubmit(e) {
-        // e.preventDefault()
+    function handleSubmit(user) {
         console.log(user)
         // onSetErrors(validateInputs(user))
         onSetSubmitting(true)
@@ -132,6 +90,7 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
                 name="email"
                 onChange={handleChange} 
                 value={user.email}
+                required
                 pattern="[a-zA-Z0-9._\-]+[@][a-z]+\.[a-z]{2,3}" />
 
             {errors.email ? 
@@ -146,9 +105,12 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
                 name="firstName" 
                 onChange={handleChange} 
                 value={user.firstName}
-                pattern="[A-Za-z]+" />
-             {errors.name ? 
-                (<p className="error">{errors.name}</p>) : null }
+                required
+                pattern="[A-Za-z]+" 
+            />
+
+             {errors.firstName ? 
+                (<p className="error">{errors.firstName}</p>) : null }
 
             <InputGroup 
                 label="Last Name" 
@@ -156,10 +118,12 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
                 name="lastName"
                 onChange={handleChange} 
                 value={user.lastName}
-                pattern="[A-Za-z]+"  />
+                pattern="[A-Za-z]+"  
+                required
+            />
 
-            {errors.name ? 
-                (<p className="error">{errors.name}</p>) : null }
+            {errors.lastName ? 
+                (<p className="error">{errors.lastName}</p>) : null }
 
             <InputGroup
                 label="Password" 
@@ -167,7 +131,9 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
                 name="password"
                 onChange={handleChange} 
                 value={user.password}
-                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"  />
+                required
+                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+            />
 
             {errors.password ? 
                 (<p className="error">{errors.password}</p>) 
@@ -180,6 +146,8 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
                 name="address" 
                 onChange={handleChange} 
                 value={user.address}
+                required
+                pattern="^[0-9A-Za-z\s\-.,#]+$"
             />
 
             {errors.address ? 
