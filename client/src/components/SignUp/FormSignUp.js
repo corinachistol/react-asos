@@ -19,8 +19,8 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
 
         const {value,name } = e.target;
         
-        console.log(value)
-        console.log(name)       
+        // console.log(value)
+        // console.log(name)       
         
         setUser(prevValue=>{
             return {
@@ -28,43 +28,54 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
                 [name]:value
             }
         })
-        console.log(user)
+        // console.log(user)
     }
 
     function validateInputs(userValues) {  //userValues este obiectul care represinta valorile curente din input
-        //nu functioneaza, obiectul validity nu este corect accesat
         let errors = {}
-        if(userValues.email.validity){
-            console.log(userValues.email.validity)
-            errors.email="I expect an email address"
+        let email_pattern = /[a-zA-Z0-9._\-]+[@][a-z]+\.[a-z]{2,3}/
+        let name_pattern = /[A-Za-z]+$/
+        let password_pattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/
+        let address_pattern = /^[0-9A-Za-z\s\-.,#]+$/
+
+        
+
+        if(!userValues.email ){
+            errors.email = "Email is required"
+        }else if(userValues.email.length < 10){
+            errors.email = "Email is too short!"
+        }else if(!userValues.email.match(email_pattern)){
+            errors.email = "You need to enter a valid email address"
         }else{
             errors.email = ""
         }
 
-        if(userValues.firstName.validity) {
-            errors.firstName = "Please enter only alphabetical characters!"
+        if(!userValues.firstName || !userValues.lastName ){
+            errors.name = "Name is required"
+        }else if(!userValues.firstName.match(name_pattern) || !userValues.lastName.match(name_pattern)){
+            errors.name = "Please enter only alphabetical characters"
         }else{
-            errors.firstName = ""
+            errors.name = ""
         }
 
-        if(userValues.lastName.validity) {
-            errors.lastName = "Please enter only alphabetical characters!"
-        }else{
-            errors.lastName = ""
-        }
-
-        if(userValues.password.validity) {
-            errors.password = "The password must contain at least one capital letter, one lowercase letter, numbers and symbols"
-        }else{
+        if(!userValues.password ){
+            errors.password = "Password is required"
+        }else if(userValues.password.length < 8){
+            errors.password = "Password must be at least 8 characters"
+        } else if (!userValues.password.trim().match(password_pattern)){
+            errors.password = "Password must contain at least one capital letter, one lowercase letter, numbers and symbols"
+        }else {
             errors.password = ""
         }
 
-        if(userValues.address.validity) {
+        if(!userValues.address ){
+            errors.address = "Address is required"
+        }else if (!userValues.address.trim().match(address_pattern)){
             errors.address = "Please enter only alphabetical characters and numbers! No zip code needed"
-        }else{
+        }else {
             errors.address = ""
         }
-
+        console.log(errors)
         return errors
 
     }
@@ -73,7 +84,15 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
     function handleSubmit(e) {
         e.preventDefault()
         onSetErrors(validateInputs(user))
-        onSetSubmitting(true)
+
+        if(Object.keys(errors).length !== 0){
+            onSetSubmitting(false)
+        }else{
+            onSetSubmitting(true)
+
+        }
+        console.log(Object.keys(errors).length)
+        console.log(submitting)
     }
 
     function finishSubmit() {
@@ -81,28 +100,25 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
     }
 
     useEffect(()=>{
-        if(Object.keys(errors).length === 0 && submitting){
+        if(Object.keys(errors).length == 0 && submitting){
             finishSubmit()
         }
     },[errors])
 
     return(
         
-        <form onSubmit={handleSubmit} noValidate action="/signup" method="POST" >
+        <form onSubmit={handleSubmit} noValidate  > 
+        {/* action="/signup" method="POST" */}
             <InputGroup
                 label="Email Address"
                 type="email" 
                 name="email"
                 onChange={handleChange} 
                 value={user.email}
-                required
-                pattern="[a-zA-Z0-9._\-]+[@][a-z]+\.[a-z]{2,3}" />
-
+            />
             {errors.email ? 
                 (<p className="error">{errors.email}</p>) : 
                 (<p>We'll send your order confirmation here</p> )}
-
-            
 
             <InputGroup
                 label="First Name"
@@ -110,12 +126,9 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
                 name="firstName" 
                 onChange={handleChange} 
                 value={user.firstName}
-                required
-                pattern="[A-Za-z]+" 
             />
-
-             {errors.firstName ? 
-                (<p className="error">{errors.firstName}</p>) : null }
+             {errors.name ? 
+                (<p className="error">{errors.name}</p>) : null }
 
             <InputGroup 
                 label="Last Name" 
@@ -123,12 +136,9 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
                 name="lastName"
                 onChange={handleChange} 
                 value={user.lastName}
-                pattern="[A-Za-z]+"  
-                required
             />
-
-            {errors.lastName ? 
-                (<p className="error">{errors.lastName}</p>) : null }
+            {errors.name ? 
+                (<p className="error">{errors.name}</p>) : null }
 
             <InputGroup
                 label="Password" 
@@ -136,10 +146,7 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
                 name="password"
                 onChange={handleChange} 
                 value={user.password}
-                required
-                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
             />
-
             {errors.password ? 
                 (<p className="error">{errors.password}</p>) 
                 : null}
@@ -151,10 +158,7 @@ export function FormSignUp({ errors, onSetErrors,submitting, onSetSubmitting}) {
                 name="address" 
                 onChange={handleChange} 
                 value={user.address}
-                required
-                pattern="^[0-9A-Za-z\s\-.,#]+$"
             />
-
             {errors.address ? 
                 (<p className="error">{errors.address}</p>) : null }
             
