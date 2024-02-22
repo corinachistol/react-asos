@@ -8,11 +8,13 @@ import {
 //layout
 import RootLayout from './layouts/RegisterLayout';
 import RegisterLayout from './layouts/RegisterLayout';
+import WomenLayout from './layouts/WomenLayout';
 //pages
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
-import  Women  from './pages/Women';
+import Women, { womenProductsLoader }  from './pages/Women';
 import Register from './components/Register';
+
 
 
 const router = createBrowserRouter(
@@ -23,10 +25,17 @@ const router = createBrowserRouter(
         <Route path="register" element={<Register/>}/>
       </Route>  
 
-        {/* is user exists in the database  */}
+        {/* if user exists in the database  */}
       <Route path="/" element={<RootLayout/>}>
         <Route index element ={<Home/>}/>
-        <Route path="women" element={<Women/>}/>
+
+        <Route path="women" element={<WomenLayout/>}>
+          <Route 
+            index 
+            element={<Women/>}
+            loader={womenProductsLoader}
+          />
+        </Route>
 
         {/* <Route path="men" element={<Men/>}/> */}
         {/* <Route path="saved-lists" element={<SavedLists/>} />
