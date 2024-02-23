@@ -15,3 +15,11 @@
 
 
 Pe partea de server sunt CRUD client routes, CR pentru products, auth routes.
+
+Update:
+Am listat citeva produse, dar am probleme cu afisarea imaginilor din cauza CORB
+![Alt text](image-3.png)
+
+Product/id
+![Alt text](image-4.png)
+
