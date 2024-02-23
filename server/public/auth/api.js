@@ -11,7 +11,7 @@ import { Client } from '../client/entities.js';
 import { Client_sessions } from "./entities.js";
 export function authRoutes(fastify, options) {
     return __awaiter(this, void 0, void 0, function* () {
-        fastify.post('/signin', (req, reply) => __awaiter(this, void 0, void 0, function* () {
+        fastify.post('/signup', (req, reply) => __awaiter(this, void 0, void 0, function* () {
             const { email, password } = req.body;
             try {
                 const matchClient = yield fastify.orm

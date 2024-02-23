@@ -5,13 +5,14 @@ export default function Women() {
     const {products} = womenProducts
     
     return (
-        <div className="women">
+        <div className="women-products">
            {products.map( product => (
             <Link to="/" key={product.id}>
-                <p>{product.title}</p>
-                <img src={product.image} alt={product.name} />
+                <img src="../women_products/img1.jpg" alt={product.name} />
+                <p>{product.name}</p>
                 <p>Price: {product.price.amount} {product.price.currency}</p>
             </Link>
+    
            ))}
         </div>
        

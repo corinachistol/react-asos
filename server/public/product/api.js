@@ -47,5 +47,19 @@ export function productRoutes(fastify, options) {
                 reply.code(500).send({ error: 'Products cannot be loaded!' });
             }
         }));
+        fastify.get('/:id', (req, reply) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const product = yield fastify.orm
+                    .getRepository(Product)
+                    .createQueryBuilder("products")
+                    .where("products.id = :id", { id })
+                    .getOne();
+                reply.code(200).send({ product });
+            }
+            catch (error) {
+                reply.code(500).send({ error: 'Product cannot be loaded!' });
+            }
+        }));
     });
 }

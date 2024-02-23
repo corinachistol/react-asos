@@ -50,6 +50,44 @@
             }
           
         }
+
+        .women-layout{
+
+            &__description{
+                margin: 0 auto 8px;
+                max-width: 50%;
+
+                h2{
+                    text-align: center;
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;
+                }
+                &_text_expander{
+                    display: flex;
+                    text-align:center;
+                    p{
+                        padding-right: .5rem;
+                    }
+
+                    button{
+                        margin: 1rem;
+                        font-size: 1rem;
+                        border:none;
+                        cursor: pointer;
+                        text-align:center;
+                        font-weight: bold;
+                    }
+                }
+
+            }
+
+            .women-products{
+                display: grid;
+               grid-template-columns: repeat(3,1fr);
+            //    gap: 2rem;
+
+            }
+        }
     }
 }
 

@@ -59,7 +59,7 @@ export async function productRoutes(fastify:FastifyInstance, options: object) {
             const product = await fastify.orm
                 .getRepository(Product)
                 .createQueryBuilder("products")
-                .where("product.id = :id", {id} )
+                .where("products.id = :id", {id} )
                 .getOne()
             
             reply.code(200).send({product})
