@@ -22,6 +22,10 @@ export default function Women() {
 //loader function
 export const womenProductsLoader = async () => {
     const response = await fetch("http://localhost:3000/products")
+
+    if(response.name == null ){
+        throw new Error("Could not fetch the products")
+    }
     
     return response.json()
 }

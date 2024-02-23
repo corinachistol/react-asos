@@ -15,11 +15,13 @@ export default function WomenProductDetails() {
 }
 
 //loader fucntion
-export const womenProductDetailsLoader = async ({params}) => {
-    console.log(params)
-    const {id} = params
+export const womenProductDetailsLoader = async ({params:{id}}) => {
     const response = await fetch(`http://localhost:3000/products/${id}`)
-    // console.log(response.json())
+
+    if(response.name == null){
+        throw new Error("Could not find that product!")
+    }
+ 
 
     return response.json()
 }

@@ -15,6 +15,7 @@ import Home from './pages/Home';
 import Women, { womenProductsLoader }  from './pages/women/Women';
 import Register from './components/Register';
 import WomenProductDetails, {womenProductDetailsLoader}  from './pages/women/WomenProductDetails';
+import ProductError from './pages/women/ProductError';
 
 
 
@@ -30,7 +31,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<RootLayout/>}>
         <Route index element ={<Home/>}/>
 
-        <Route path="women" element={<WomenLayout/>}>
+        <Route path="women" element={<WomenLayout/>} errorElement={<ProductError/>}>
           <Route 
             index 
             element={<Women/>}
@@ -41,7 +42,6 @@ const router = createBrowserRouter(
             element={<WomenProductDetails/>}
             loader={womenProductDetailsLoader}
           >
-
           </Route>
         </Route>
 
