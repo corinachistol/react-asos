@@ -12,8 +12,9 @@ import WomenLayout from './layouts/WomenLayout';
 //pages
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
-import Women, { womenProductsLoader }  from './pages/Women';
+import Women, { womenProductsLoader }  from './pages/women/Women';
 import Register from './components/Register';
+import WomenProductDetails, {womenProductDetailsLoader}  from './pages/women/WomenProductDetails';
 
 
 
@@ -35,6 +36,13 @@ const router = createBrowserRouter(
             element={<Women/>}
             loader={womenProductsLoader}
           />
+          <Route
+            path=":id"
+            element={<WomenProductDetails/>}
+            loader={womenProductDetailsLoader}
+          >
+
+          </Route>
         </Route>
 
         {/* <Route path="men" element={<Men/>}/> */}

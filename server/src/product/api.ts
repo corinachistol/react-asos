@@ -64,7 +64,7 @@ export async function productRoutes(fastify:FastifyInstance, options: object) {
             
             reply.code(200).send({product})
         } catch (error) {
-            reply.code(500).send({error: 'Product cannot be loaded!'})
+            reply.code(500).send({error: 'Product is missing in the database'})
         }
     })
 

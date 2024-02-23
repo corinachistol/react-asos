@@ -7,7 +7,7 @@ export default function Women() {
     return (
         <div className="women-products">
            {products.map( product => (
-            <Link to="/" key={product.id}>
+            <Link to={product.id.toString()} key={product.id}>
                 <img src="../women_products/img1.jpg" alt={product.name} />
                 <p>{product.name}</p>
                 <p>Price: {product.price.amount} {product.price.currency}</p>
