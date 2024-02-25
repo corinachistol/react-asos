@@ -30,7 +30,7 @@ export function TextExpander({
 
     const [isExpanded,setIsExpanded] = useState(expanded)
     const displayText = isExpanded ? children : 
-        children.split(' ').slice(0, collapsedNumwords).join(" ") + "..."
+        children.split('').slice(0, collapsedNumwords).join(" ") + "..."
         
     return (
         <div className={clasName}>
