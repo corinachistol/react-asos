@@ -16,6 +16,7 @@ import Women, { womenProductsLoader }  from './pages/women/Women';
 import Register from './components/Register';
 import WomenProductDetails, {womenProductDetailsLoader}  from './pages/women/WomenProductDetails';
 import ProductError from './pages/women/ProductError';
+import { formSignUpAction } from './components/SignUp/FormSignUp';
 
 
 
@@ -24,7 +25,7 @@ const router = createBrowserRouter(
     <Route>
       <Route path="/" element={<RegisterLayout/>}>
         <Route index element={<Home/>}/>
-        <Route path="register" element={<Register/>}/>
+        <Route path="register" element={<Register/>} action={formSignUpAction}/>
       </Route>  
 
         {/* if user exists in the database  */}

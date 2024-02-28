@@ -5,10 +5,11 @@ export default function WomenProductDetails() {
     const {id} = useParams()
     const products = useLoaderData()
     const {product} = products
+    console.log(product)
     return(
         <div className="product-details">
-            <h2>Product Details for {product.name}</h2>
-            <img src="../women_products/img1.jpg" alt={product.name} />
+            <h4>Product Details for {product.name}</h4>
+            <img src={product.image} alt={product.name} />
             <p>Price {product.price.amount} {product.price.currency}</p>
         </div>
     )
@@ -18,7 +19,7 @@ export default function WomenProductDetails() {
 export const womenProductDetailsLoader = async ({params:{id}}) => {
     const response = await fetch(`http://localhost:3000/products/${id}`)
 
-    if(response.name == null){
+    if(!response.ok){
         throw new Error("Could not find that product!")
     }
  

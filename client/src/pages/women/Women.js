@@ -9,7 +9,7 @@ export default function Women() {
            {products.map( product => (
             <Link to={product.id.toString()} key={product.id}>
                 {/* <img src="../women_products/img1.jpg" alt={product.name} /> */}
-                <img src={product.image} alt={product.ame} />
+                <img src={product.image} alt={product.name} />
                 <p>{product.name}</p>
                 <p>Price: {product.price.amount} {product.price.currency}</p>
             </Link>
