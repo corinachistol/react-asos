@@ -58,7 +58,50 @@ export function productRoutes(fastify, options) {
                 reply.code(200).send({ product });
             }
             catch (error) {
-                reply.code(500).send({ error: 'Product cannot be loaded!' });
+                reply.code(500).send({ error: 'Product is missing in the database' });
+            }
+        }));
+        fastify.delete('/:id', (req, reply) => __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            try {
+                const res = yield fastify.orm
+                    .getRepository(Product)
+                    .createQueryBuilder('products')
+                    .delete()
+                    .from(Product)
+                    .where("product.id = :id", { id })
+                    .execute();
+                console.log(`Products id: ${id} was deleted`);
+                return reply.code(200).send({ status: "success", res });
+            }
+            catch (error) {
+                console.log(error);
+                return reply.code(500).send({ message: "Internal Server Error" });
+            }
+        }));
+        fastify.patch('/:id', (req, reply) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const { name, image, priceId, priceAmount, priceCurrency } = req.body;
+                const new_product = yield fastify.orm
+                    .createQueryBuilder()
+                    .update(Product)
+                    .set({
+                    name: name,
+                    image: image,
+                    price: {
+                        id: priceId,
+                        amount: priceAmount,
+                        currency: priceCurrency
+                    }
+                })
+                    .where("id = :id", { id })
+                    .execute();
+                return reply.send({ new_product });
+            }
+            catch (error) {
+                console.log(error);
+                return reply.code(500).send({ message: "Internal Server Error" });
             }
         }));
     });
